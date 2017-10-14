@@ -7,11 +7,6 @@ import operator
 import isodate
 import duration
 
-"""
-TODO
-1. Checks to see if there are no items returned.
-"""
-
 app = Flask(__name__, static_url_path='')
 api_key = ''
 
@@ -135,4 +130,4 @@ def find_items():
             return jsonify(results)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0')
