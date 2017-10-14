@@ -70,7 +70,7 @@ def find_items():
     date = date.isoformat()
     
     call_obj = {
-        'url' : 'http://svcs.ebay.com/services/search/FindingService/v1?',
+        'url' : 'http://66.135.211.96/services/search/FindingService/v1?',
         'op-name': 'OPERATION-NAME=findItemsAdvanced&', 
         'service-ver': 'SERVICE-VERSION=1.0.0&',
         'api_key': 'SECURITY-APPNAME=' + api_key + '&',
@@ -102,7 +102,6 @@ def find_items():
                              call_obj['itemFilter4'] + 
                              call_obj['sort']
                              )
-            
             if check_response(json.loads(r.content)):
                 items.append(json.loads(r.content))
     
@@ -128,6 +127,16 @@ def find_items():
         else:
             results = parse_results(items)
             return jsonify(results)
+        
+@app.after_request
+def add_header(response):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
+    response.headers['Cache-Control'] = 'public, max-age=0'
+    return response
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', threaded=True)
