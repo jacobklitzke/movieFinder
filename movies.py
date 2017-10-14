@@ -25,7 +25,6 @@ def parse_results(results):
     items.sort(key=operator.itemgetter('price'))
     for item in items:
         item['timeLeft'] = duration.to_iso8601(item['timeLeft']) 
-    print items
     return items
 
 def check_response(res):
