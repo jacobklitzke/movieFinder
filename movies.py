@@ -17,14 +17,15 @@ def parse_results(results):
             obj = {
                 'title': item['title'][0],
                 'link' : item['viewItemURL'][0],
-                'price' : item['sellingStatus'][0]['currentPrice'][0]['__value__'],
+                'price' : float(item['sellingStatus'][0]['currentPrice'][0]['__value__']),
                 'timeLeft' : isodate.parse_duration(item['sellingStatus'][0]['timeLeft'][0]),
                 'listingType' : item['listingInfo'][0]['listingType'][0]
                 }
             items.append(obj)  
-    items.sort(key=operator.itemgetter('timeLeft'))
+    items.sort(key=operator.itemgetter('price'))
     for item in items:
         item['timeLeft'] = duration.to_iso8601(item['timeLeft']) 
+    print items
     return items
 
 def check_response(res):
