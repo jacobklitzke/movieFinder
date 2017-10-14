@@ -1,0 +1,4 @@
+requests==2.9.1
+isodate==0.5.4
+Flask==0.12.2
+duration==1.1.1

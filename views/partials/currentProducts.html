@@ -1,0 +1,31 @@
+<div>
+    <h1>Current Poducts:</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>UPC</th>
+                <th>Max Price</th>
+                <th>Edit Max Price</th>
+                <th>Delete Item</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="product in currentProducts track by $index">
+                <td scope="row">{{product.title}}</td>
+                <td>{{product.upc}}</td>
+                <td ng-if="editButton[$index].editButtonClicked">{{product.maxPrice}}</td>
+                <td ng-if="!editButton[$index].editButtonClicked">
+                    <input type="text" ng-model="formData.maxPrice">
+                </td>
+                <td><i ng-class="{'fa fa-pencil' : editButton[$index].editButtonClicked, 'fa fa-check-circle-o' : !editButton[$index].editButtonClicked }" ng-click="editPriceToggle($index)"></i></td>
+                <td><i class="fa fa-trash-o" ng-click="deleteItem(product)"></i></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div ng-if="editPrice">
+        New Max Price: <input type="text" ng-model="maxPrice">
+        <button type="button" class="btn btn-primary btn-sm" ng-click="saveMaxPrice(maxPrice)">Update</button>
+    </div>
+</div>

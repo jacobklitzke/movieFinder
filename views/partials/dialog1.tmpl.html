@@ -1,0 +1,29 @@
+<md-dialog aria-label="Add New Item">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Add New Item</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <md-input-container class="md-block" md-no-float>
+            <input type="text" placeholder="Movie Title" ng-model="formData.title" />
+        </md-input-container>
+        <md-input-container class="md-block" md-no-float>
+            <input type="text" placeholder="UPC" ng-model="formData.upc" />
+        </md-input-container>
+        <md-input-container class="md-block" md-no-float>
+            <input type="text" placeholder="Max Price" ng-model="formData.price" />
+        </md-input-container>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button ng-click="cancel()">
+       Cancel
+      </md-button>
+      <md-button ng-click="answer(formData)">
+        Submit
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

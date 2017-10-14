@@ -1,0 +1,39 @@
+<button type="button" class="btn btn-primary btn-sm" ng-click="findItems()">Search!</button>
+
+<div ng-if="itemsReturned">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th><a href="#" ng-click="titleSort(); sortItemType = 'title'">Title
+                    <span ng-show="sortItemType == 'title' && !sortItemReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortItemType == 'title' && sortItemReverse" class="fa fa-caret-up"></span></a>
+                </th>
+                <th><a href="#" ng-click="priceSort(); sortItemType = 'price'">Price
+                    <span ng-show="sortItemType == 'price' && !sortItemReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortItemType == 'price' && sortItemReverse" class="fa fa-caret-up"></span></a>
+                </th>
+                <th><a href="#" ng-click="listingSort(); sortItemType = 'listingType'">Listing Type
+                    <span ng-show="sortItemType == 'listingType' && !sortItemReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortItemType == 'listingType' && sortItemReverse" class="fa fa-caret-up"></span></a>
+                </th>
+                <th>Time Left</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in itemResults track by item.link">
+                <td scope="row">{{item.title}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.listingType}}</td>
+                <td>{{item.timeLeft}}</td>
+                <td><i class="fa fa-external-link" ng-click="openItem($index)"></i></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div ng-if="noItemsFound">
+    <p>
+        Sorry, no items found!
+    </p>
+</div>
