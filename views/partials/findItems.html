@@ -4,11 +4,11 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th><a href="#" ng-click="titleSort(); sortItemType = 'title'">Title
+                <th><a href="#" ng-click="titleSort('item'); sortItemType = 'title'">Title
                     <span ng-show="sortItemType == 'title' && !sortItemReverse" class="fa fa-caret-down"></span>
                     <span ng-show="sortItemType == 'title' && sortItemReverse" class="fa fa-caret-up"></span></a>
                 </th>
-                <th><a href="#" ng-click="priceSort(); sortItemType = 'price'">Price
+                <th><a href="#" ng-click="priceSort('item'); sortItemType = 'price'">Price
                     <span ng-show="sortItemType == 'price' && !sortItemReverse" class="fa fa-caret-down"></span>
                     <span ng-show="sortItemType == 'price' && sortItemReverse" class="fa fa-caret-up"></span></a>
                 </th>

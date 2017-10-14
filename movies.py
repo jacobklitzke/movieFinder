@@ -8,7 +8,7 @@ import isodate
 import duration
 
 app = Flask(__name__, static_url_path='')
-api_key = ''
+api_key = 'JacoKlit-MovieFin-PRD-48e01d5e3-f8e623a4'
 
 def parse_results(results):
     items = []

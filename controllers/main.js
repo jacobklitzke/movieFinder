@@ -26,11 +26,18 @@ app.controller('mainPageCtrl', ['$scope', '$http', '$location', '$mdDialog', '$w
     $scope.changeToFindItems = function() {
         $scope.template = $scope.templates[1];
     };
+    
+    $scope.sortProductType = 'title';
+    $scope.sortProductReverse = true;
+    
+    
 
     $scope.getCurrentProducts = function() {
         $http.get("/getCurrentProducts")
             .then(function(response) {
-                $scope.currentProducts = response.data;
+                $scope.currentProducts = response.data.sort(function(x, y) {
+                    return ((x.title == y.title) ? 0 : ((x.title > y.title) ? 1 : -1 ));
+                });
                 console.log($scope.currentProducts);
                 $scope.editButton = [];
                 for (var i = 0; i < $scope.currentProducts.length; i++) {
@@ -38,6 +45,7 @@ app.controller('mainPageCtrl', ['$scope', '$http', '$location', '$mdDialog', '$w
                         "editButtonClicked": "false"
                     });
                 }
+                
             });
     };
     $scope.getCurrentProducts();
@@ -95,33 +103,64 @@ app.controller('mainPageCtrl', ['$scope', '$http', '$location', '$mdDialog', '$w
     });
   };
 
-    $scope.titleSort = function() {
-        $scope.sortItemReverse = !$scope.sortItemReverse;
-        if(!$scope.sortItemReverse) {
-            $scope.itemResults.sort(function(x, y) {
-                return ((x.title == y.title) ? 0 : ((x.title > y.title) ? 1 : -1 ));
-            });
+    $scope.titleSort = function(page) {
+        if(page === "item") {
+            $scope.sortItemReverse = !$scope.sortItemReverse;
+            if(!$scope.sortItemReverse) {
+                $scope.itemResults.sort(function(x, y) {
+                     ((x.title == y.title) ? 0 : ((x.title > y.title) ? 1 : -1 ));
+                });
+            }
+            else {
+                $scope.itemResults.sort(function(x, y) {
+                    return ((x.title == y.title) ? 0 : ((y.title > x.title) ? 1 : -1 ));
+                });
+            }
         }
         else {
-            $scope.itemResults.sort(function(x, y) {
-                return ((x.title == y.title) ? 0 : ((y.title > x.title) ? 1 : -1 ));
-            });
+            $scope.sortProductReverse = !$scope.sortProductReverse;
+            if(!$scope.sortProductReverse) {
+                $scope.currentProducts.sort(function(x, y) {
+                    return ((x.title == y.title) ? 0 : ((x.title > y.title) ? 1 : -1 ));
+                });
+            }
+            else {
+                $scope.currentProducts.sort(function(x, y) {
+                    return ((x.title == y.title) ? 0 : ((y.title > x.title) ? 1 : -1 ));
+                });
+            }
         }
+        
     };
 
-    $scope.priceSort = function() {
-        $scope.sortItemReverse = !$scope.sortItemReverse;
-        console.log($scope.sortItemReverse);
-        if(!$scope.sortItemReverse) {
-            $scope.itemResults.sort(function(a, b) {
-                return a.price - b.price;
-            });
+    $scope.priceSort = function(page) {
+        if(page === "item") {
+            $scope.sortItemReverse = !$scope.sortItemReverse;
+            if(!$scope.sortItemReverse) {
+                $scope.itemResults.sort(function(a, b) {
+                    return a.price - b.price;
+                });
+            }
+            else {
+                $scope.itemResults.sort(function(a, b) {
+                    return b.price - a.price;
+                });
+            }
         }
         else {
-            $scope.itemResults.sort(function(a, b) {
-                return b.price - a.price;
-            });
+            $scope.sortProductReverse = !$scope.sortProductReverse;
+            if(!$scope.sortProductReverse) {
+                $scope.currentProducts.sort(function(a, b) {
+                    return a.price - b.price;
+                });
+            }
+            else {
+                $scope.currentProducts.sort(function(a, b) {
+                    return b.price - a.price;
+                });
+            }
         }
+        
 
     };
 
